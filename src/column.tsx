@@ -6,6 +6,22 @@ export function truncateLabel(a: string) {
   return a.substring(a.lastIndexOf('.') + 1);
 }
 
+const Details = styled.details`
+  & > summary {
+    font-size: larger;
+    cursor: pointer;
+
+    &::marker {
+      color: darkgray;
+      font-size: 20px;
+    }
+  }
+
+  & > div {
+    padding: .2em 1em;
+  }
+`;
+
 const Column = styled.div`
   width: clamp(96px, 4in, 20vw);
 `;
@@ -108,7 +124,10 @@ const System = ({ kind, usages, categories }: {
       {systems.length
         ? systems.map((sys, i) => (
           <Card key={i}>
-            <h4>{sys.name}</h4>
+            <Details>
+              <summary>{sys.name}</summary>
+              <div>{sys.description}</div>
+            </Details>
             <Categories {...sys} />
           </Card>
         ))
