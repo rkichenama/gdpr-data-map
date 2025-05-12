@@ -1,0 +1,2 @@
+* [32m779dd06 [33m[2 hours ago][31m (HEAD -> main) [minitial set up and layout[35m [Richard Kichenama]
+* [32m08107a3 [33m[4 hours ago][31m (origin/main, origin/HEAD) [mInitial commit[35m [GitHub]
