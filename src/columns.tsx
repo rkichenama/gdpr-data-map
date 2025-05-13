@@ -13,11 +13,21 @@ const Columns = styled.section`
 const SystemsFilters = () => {
   const {systems, dataUsages, dataCategories } = useContext(SampleContext);
 
+  const [types, setTypes] = useState(systems);
   const [usages, setUsages] = useState(dataUsages);
   const [categories, setCategories] = useState(dataCategories);
 
-  // const [visibleSystems, setVisibleSystems] = useState<Array<string>>(systems);
-
+  const toggleSystemType = useCallback<ChangeEventHandler<HTMLInputElement>>((evt) => {
+    const col = evt.target.value;
+    const checked = evt.target.checked;
+    const set = new Set(types);
+    if (!checked) {
+      set.delete(col);
+    } else {
+      set.add(col);
+    }
+    setTypes(Array.from(set));
+  }, [types, setTypes]);
   const toggleUsage = useCallback<ChangeEventHandler<HTMLInputElement>>((evt) => {
     const col = evt.target.value;
     const checked = evt.target.checked;
@@ -52,6 +62,19 @@ const SystemsFilters = () => {
   return (
     <div>
       <div>
+        <h2>System Type</h2>
+        {systems.map((system) => (
+          <label key={system} title={system}>
+            <input
+              type='checkbox'
+              value={system}
+              onChange={toggleSystemType}
+              defaultChecked={types.includes(system)}
+            />
+            {' '}
+            {truncateLabel(system)}
+          </label>
+        ))}
         <h2>Data Use</h2>
         {dataUsages.map((usage) => (
           <label key={usage} title={usage}>
@@ -80,7 +103,7 @@ const SystemsFilters = () => {
         ))}
       </div>
       <Columns>
-        {systems.map((system) => (
+        {types.map((system) => (
           <System key={system} kind={system} {...{usages, categories}} />
         ))}
       </Columns>
