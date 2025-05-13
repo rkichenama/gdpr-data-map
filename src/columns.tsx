@@ -2,6 +2,7 @@ import React, { ChangeEventHandler, useCallback, useContext, useEffect, useState
 import styled from 'styled-components';
 import { SampleContext } from './data/context';
 import System, { truncateLabel } from './column';
+// import Connections from './connections';
 
 const Columns = styled.section`
   display: flex;
@@ -58,6 +59,7 @@ const SystemsFilters = () => {
     setCategories(dataCategories);
   }, [dataCategories]);
 
+  useEffect(() => {}, [types]);
 
   return (
     <div>
@@ -102,6 +104,7 @@ const SystemsFilters = () => {
           </label>
         ))}
       </div>
+      {/* <Connections {...{ types }} /> */}
       <Columns>
         {types.map((system) => (
           <System key={system} kind={system} {...{usages, categories}} />
